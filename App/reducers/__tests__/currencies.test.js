@@ -15,6 +15,10 @@ it("Sets initial state", () => {
   expect(actual).toEqual(expected);
 });
 
+it("Sets initial state with snapshot check", () => {
+  expect(reducer(undefined, {})).toMatchSnapshot();
+});
+
 it("sets nested data on initial fetch", () => {
   const expected = {
     ...initialState,
@@ -28,4 +32,8 @@ it("sets nested data on initial fetch", () => {
   };
   const actual = reducer(undefined, getInitialConversion());
   expect(actual).toEqual(expected);
+});
+
+it("sets nested data on initial fetch with snapshot check", () => {
+  expect(reducer(undefined, getInitialConversion())).toMatchSnapshot();
 });

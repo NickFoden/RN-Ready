@@ -5,22 +5,22 @@ import {
   CHANGE_QUOTE_CURRENCY,
   GET_INITIAL_CONVERSION,
   CONVERSION_RESULT,
-  CONVERSION_ERROR,
-} from '../actions/currencies';
+  CONVERSION_ERROR
+} from "../actions/currencies";
 
 const initialState = {
-  baseCurrency: 'USD',
-  quoteCurrency: 'GBP',
+  baseCurrency: "USD",
+  quoteCurrency: "GBP",
   amount: 100,
   conversions: {},
-  error: null,
+  error: null
 };
 
 const setConversions = (state, action) => {
   let conversion = {
     isFetching: true,
-    date: '',
-    rates: {},
+    date: "",
+    rates: {}
   };
 
   if (state.conversions[action.currency]) {
@@ -29,7 +29,7 @@ const setConversions = (state, action) => {
 
   return {
     ...state.conversions,
-    [action.currency]: conversion,
+    [action.currency]: conversion
   };
 };
 
@@ -41,22 +41,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         baseCurrency: state.quoteCurrency,
-        quoteCurrency: state.baseCurrency,
+        quoteCurrency: state.baseCurrency
       };
     case CHANGE_BASE_CURRENCY:
       return {
         ...state,
         baseCurrency: action.currency,
-        conversions: setConversions(state, action),
+        conversions: setConversions(state, action)
       };
     case CHANGE_QUOTE_CURRENCY:
       return {
         ...state,
         quoteCurrency: action.currency,
-        conversions: setConversions(state, action),
+        conversions: setConversions(state, action)
       };
     case GET_INITIAL_CONVERSION:
-      return { ...state, conversions: setConversions(state, { currency: state.baseCurrency }) };
+      return {
+        ...state,
+        conversions: setConversions(state, { currency: state.baseCurrency })
+      };
     case CONVERSION_RESULT:
       return {
         ...state,
@@ -64,9 +67,9 @@ export default (state = initialState, action) => {
           ...state.conversions,
           [action.result.base]: {
             isFetching: false,
-            ...action.result,
-          },
-        },
+            ...action.result
+          }
+        }
       };
     case CONVERSION_ERROR:
       return { ...state, error: action.error };
