@@ -6,6 +6,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage && open coverage/lcov-report/index.html",
     "lint": "eslint ."
   },
