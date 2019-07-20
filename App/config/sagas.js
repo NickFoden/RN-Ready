@@ -1,5 +1,5 @@
-import { takeEvery, call, put, select } from "redux-saga/effects";
-import { delay } from "redux-saga";
+import { delay, takeEvery, call, put, select } from "redux-saga/effects";
+// import { } from "redux-saga";
 import {
   CHANGE_BASE_CURRENCY,
   GET_INITIAL_CONVERSION,
@@ -8,8 +8,24 @@ import {
   CONVERSION_ERROR
 } from "../actions/currencies";
 
-export const getLatestRate = currency =>
-  fetch(`https://fixer.handlebarlabs.com/latest?base=${currency}`);
+const requestTimeout = (time, promise) => {
+  new Promise((resolve, reject) => {
+    setTimeout(
+      () =>
+        reject(
+          new Error("Request has timed out you have a slow internet connection")
+        ),
+      time
+    );
+    promise.then(resolve, reject);
+  });
+};
+export const getLatestRate = currency => {
+  requestTimeout(
+    2000,
+    fetch(`https://fixer.handlebarlabs.com/latest?base=${currency}`)
+  );
+};
 
 const fetchLatestConversionRates = function*({ currency }) {
   const { connected, hasCheckedStatus } = yield select(state => state.network);
@@ -29,6 +45,7 @@ const fetchLatestConversionRates = function*({ currency }) {
     }
     const response = yield call(getLatestRate, usedCurrency);
     const result = yield response.json();
+
     if (result.error) {
       yield put({ type: CONVERSION_ERROR, error: result.error });
     } else {
