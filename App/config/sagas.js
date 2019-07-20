@@ -1,5 +1,5 @@
 import { takeEvery, call, put, select } from "redux-saga/effects";
-
+import { delay } from "redux-saga";
 import {
   CHANGE_BASE_CURRENCY,
   GET_INITIAL_CONVERSION,
@@ -13,7 +13,7 @@ export const getLatestRate = currency =>
 
 const fetchLatestConversionRates = function*({ currency }) {
   const { connected, hasCheckedStatus } = yield select(state => state.network);
-  // yield put({ type: CONVERSION_ERROR, error: null });
+
   if (!connected && hasCheckedStatus) {
     yield put({
       type: CONVERSION_ERROR,
@@ -39,10 +39,20 @@ const fetchLatestConversionRates = function*({ currency }) {
   }
 };
 
+const clearConversionError = function*() {
+  const DELAY_SECONDS = 4;
+  const error = yield select(state => state.currencies.error);
+  if (error) {
+    yield delay(DELAY_SECONDS * 1000);
+    yield put({ type: CONVERSION_ERROR, error: null });
+  }
+};
+
 const rootSaga = function*() {
   yield takeEvery(GET_INITIAL_CONVERSION, fetchLatestConversionRates);
   yield takeEvery(CHANGE_BASE_CURRENCY, fetchLatestConversionRates);
   yield takeEvery(SWAP_CURRENCY, fetchLatestConversionRates);
+  yield takeEvery(CONVERSION_ERROR, clearConversionError);
 };
 
 export default rootSaga;
