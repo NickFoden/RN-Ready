@@ -1,14 +1,20 @@
-import React from 'react';
-import { Animated, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
+import React from "react";
+import {
+  Animated,
+  Text,
+  SafeAreaView,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 
-import styles from './styles';
+import styles from "./styles";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 export default class DropdownAlert extends React.Component {
   state = {
     contentHeight: height,
     title: null,
-    message: null,
+    message: null
   };
 
   animatedOffset = new Animated.Value(0);
@@ -17,7 +23,7 @@ export default class DropdownAlert extends React.Component {
     this.setState(
       {
         title,
-        message,
+        message
       },
       () => {
         this.open().then(() => {
@@ -25,29 +31,29 @@ export default class DropdownAlert extends React.Component {
             this.close();
           }, 3000);
         });
-      },
+      }
     );
   };
 
   measureContent = ({ nativeEvent }) => {
     this.setState({
-      contentHeight: Math.ceil(nativeEvent.layout.height),
+      contentHeight: Math.ceil(nativeEvent.layout.height)
     });
   };
 
   open = () =>
-    new Promise((resolve) => {
+    new Promise(resolve => {
       Animated.timing(this.animatedOffset, {
         toValue: 1,
-        useNativeDriver: true,
+        useNativeDriver: true
       }).start(() => resolve());
     });
 
   close = () =>
-    new Promise((resolve) => {
+    new Promise(resolve => {
       Animated.timing(this.animatedOffset, {
         toValue: 0,
-        useNativeDriver: true,
+        useNativeDriver: true
       }).start(() => resolve());
     });
 
@@ -60,11 +66,11 @@ export default class DropdownAlert extends React.Component {
           {
             translateY: this.animatedOffset.interpolate({
               inputRange: [0, 1],
-              outputRange: [-this.state.contentHeight, 0],
-            }),
-          },
-        ],
-      },
+              outputRange: [-this.state.contentHeight, 0]
+            })
+          }
+        ]
+      }
     ];
 
     return (
