@@ -20,7 +20,6 @@ const requestTimeout = (time, promise) => {
   });
 };
 export const getLatestRate = currency => {
-  debugger;
   requestTimeout(
     2000,
     fetch(`https://fixer.handlebarlabs.com/latest?base=${currency}`)
