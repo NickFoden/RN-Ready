@@ -1,7 +1,7 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native';
+import React from "react";
+import { SafeAreaView } from "react-native";
 
-import styles from './styles';
+import styles from "./styles";
 
 const Container = ({ children, backgroundColor }) => {
   const containerStyles = [styles.container];
