@@ -20,11 +20,10 @@ export default class extends Component {
     return (
       <Provider store={this.state.store}>
         <PersistGate persistor={this.state.persistor}>
-          <SafeAreaView style={{ flex: 1, backgroundColor: "#4F6D7A" }}>
+
             <AlertProvider>
               <Navigator onNavigationStateChange={null} />
             </AlertProvider>
-          </SafeAreaView>
         </PersistGate>
       </Provider>
     );

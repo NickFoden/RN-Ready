@@ -8,7 +8,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage && open coverage/lcov-report/index.html",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "react-devtools": "react-devtools"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^4.1.2",
