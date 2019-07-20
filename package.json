@@ -8,7 +8,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage && open coverage/lcov-report/index.html",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "react-devtools": "react-devtools"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^4.1.2",
@@ -19,7 +20,6 @@
     "react-navigation": "^3.11.1",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
-    "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.5"
   },
@@ -38,9 +38,12 @@
     "metro-react-native-babel-preset": "^0.55.0",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
+    "react-devtools": "^3.6.2",
     "react-dom": "^16.8.6",
     "react-test-renderer": "16.8.6",
-    "redux-mock-store": "^1.5.3"
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.3",
+    "remote-redux-devtools": "^0.5.16"
   },
   "jest": {
     "preset": "react-native",
