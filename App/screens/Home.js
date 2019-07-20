@@ -19,11 +19,6 @@ import {
 import { changeNetworkStatus } from "../actions/network";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.props.dispatch(getInitialConversion());
-  }
   componentDidMount() {
     NetInfo.addEventListener("connectionChange", this.handleNetworkChange);
   }
@@ -40,6 +35,7 @@ class Home extends Component {
 
   handleNetworkChange = info => {
     this.props.dispatch(changeNetworkStatus(info.type));
+    this.props.dispatch(getInitialConversion());
   };
 
   handleChangeText = text => {

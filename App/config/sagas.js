@@ -1,17 +1,27 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from "redux-saga/effects";
 
 import {
   CHANGE_BASE_CURRENCY,
   GET_INITIAL_CONVERSION,
   SWAP_CURRENCY,
   CONVERSION_RESULT,
-  CONVERSION_ERROR,
-} from '../actions/currencies';
+  CONVERSION_ERROR
+} from "../actions/currencies";
 
 export const getLatestRate = currency =>
   fetch(`https://fixer.handlebarlabs.com/latest?base=${currency}`);
 
-const fetchLatestConversionRates = function* ({ currency }) {
+const fetchLatestConversionRates = function*({ currency }) {
+  const { connected, hasCheckedStatus } = yield select(state => state.network);
+  // yield put({ type: CONVERSION_ERROR, error: null });
+  if (!connected && hasCheckedStatus) {
+    yield put({
+      type: CONVERSION_ERROR,
+      error:
+        "Not connected to the internet. Conversion rate may be out of date or unavailable"
+    });
+    return;
+  }
   try {
     let usedCurrency = currency;
     if (usedCurrency === undefined) {
@@ -29,7 +39,7 @@ const fetchLatestConversionRates = function* ({ currency }) {
   }
 };
 
-const rootSaga = function* () {
+const rootSaga = function*() {
   yield takeEvery(GET_INITIAL_CONVERSION, fetchLatestConversionRates);
   yield takeEvery(CHANGE_BASE_CURRENCY, fetchLatestConversionRates);
   yield takeEvery(SWAP_CURRENCY, fetchLatestConversionRates);
