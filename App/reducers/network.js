@@ -8,7 +8,7 @@ const isConnected = status => {
   return true;
 };
 
-const initialState = {
+export const initialState = {
   connected: false,
   hasCheckedStatus: false
 };

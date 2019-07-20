@@ -1,5 +1,4 @@
 import { delay, takeEvery, call, put, select } from "redux-saga/effects";
-// import { } from "redux-saga";
 import {
   CHANGE_BASE_CURRENCY,
   GET_INITIAL_CONVERSION,
@@ -27,10 +26,11 @@ export const getLatestRate = currency => {
   );
 };
 
-const fetchLatestConversionRates = function*({ currency }) {
+export const fetchLatestConversionRates = function*({ currency }) {
   const { connected, hasCheckedStatus } = yield select(state => state.network);
 
   if (!connected && hasCheckedStatus) {
+    console.log("Not connected");
     yield put({
       type: CONVERSION_ERROR,
       error:
@@ -38,6 +38,7 @@ const fetchLatestConversionRates = function*({ currency }) {
     });
     return;
   }
+
   try {
     let usedCurrency = currency;
     if (usedCurrency === undefined) {
