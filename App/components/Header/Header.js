@@ -1,12 +1,28 @@
-import React from 'react';
-import { Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import React from "react";
+import { Image, TouchableOpacity, SafeAreaView } from "react-native";
 
-import styles from './styles';
+import styles from "./styles";
 
-const Header = ({ onPress }) => (
+const Header = ({ onPress, isConnected, onWarningPress }) => (
   <SafeAreaView style={styles.container}>
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Image resizeMode="contain" source={require('./images/gear.png')} style={styles.icon} />
+    {!isConnected ? (
+      <TouchableOpacity onPress={onWarningPress} style={styles.button}>
+        <Image
+          resizeMode="contain"
+          source={require("./images/warning.png")}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
+    ) : null}
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.button, styles.buttonRight]}
+    >
+      <Image
+        resizeMode="contain"
+        source={require("./images/gear.png")}
+        style={styles.icon}
+      />
     </TouchableOpacity>
   </SafeAreaView>
 );

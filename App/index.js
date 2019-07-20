@@ -1,14 +1,17 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React from "react";
+import { SafeAreaView } from "react-native";
+import { Provider } from "react-redux";
 
-import Navigator from './config/routes';
-import { AlertProvider } from './components/Alert';
-import store from './config/store';
+import Navigator from "./config/routes";
+import { AlertProvider } from "./components/Alert";
+import store from "./config/store";
 
 export default () => (
   <Provider store={store}>
-    <AlertProvider>
-      <Navigator onNavigationStateChange={null} />
-    </AlertProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#4F6D7A" }}>
+      <AlertProvider>
+        <Navigator onNavigationStateChange={null} />
+      </AlertProvider>
+    </SafeAreaView>
   </Provider>
 );
